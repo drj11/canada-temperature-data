@@ -1,0 +1,23 @@
+Data and metadata for Environment Canada Weather Stations.
+
+The schema is just about designed so that any monthly meteorological variable (max temps, mean temps, precipitation) can be recorded.  For the current scraper, monthly means of daily mean min and max temperatures are stored (the source CSV files record many more variables).  Pay attention to flags, some data is estimated.
+
+SCHEMA BEING REVISED
+
+In the swdata table the unique key is (id,element,year).
+_element_ is, for data: 'tmeanM' daily mean temperature averaged over the month; 'tminM' daily minimum temperature; 'tmaxM' daily maximum temperature.
+_element_ is, for flags: 'tmeanMflag', 'tminMflag', 'tmaxMflag' are flags for the corresponding data value.  These flags are copied from Environment Canada.  Seem to be:
+"[Empty]","No Data Available"
+"M","Missing"
+"E","Estimated"
+"B","More Than One Occurrence and Estimated"
+"I","The value displayed is based on incomplete data"
+"S","More than One Occurrence"
+"T","Trace"
+
+_id_ is a GHCN style 11 character identifier for the station (derived from the identifers that Environment Canada uses).  Note: contains non-digits.
+_year_ specifies the year.
+
+Each row contains data for 12 months, columns _M01_ through to _M12_.
+
+I use this to analyse temperature changes in the arctic zone, using ccc-gistemp: see "this blog post":http://clearclimatecode.org/analysis-of-canada-data/.
